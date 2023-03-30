@@ -1,0 +1,93 @@
+%cover {
+  height: 100%;
+  left: 0;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+@mixin placeholder {
+  &.placeholder {
+    @content;
+  }
+  &::-webkit-input-placeholder {
+    @content;
+  }
+  &::-moz-placeholder {
+    @content;
+  }
+  &:-moz-placeholder {
+    @content;
+  }
+  &:-ms-input-placeholder {
+    @content;
+  }
+}
+
+@mixin autoFill($bgColor: $white, $color: $black) {
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus,
+  &:-webkit-autofill:active {
+    box-shadow: 0 0 0 30px $bgColor inset;
+    -webkit-box-shadow: 0 0 0 30px $bgColor inset;
+    -webkit-text-fill-color: $color;
+  }
+}
+
+@mixin cursor {
+  @media (any-pointer: fine) {
+    @content;
+  }
+}
+
+@mixin cursor-mobile {
+  @media (pointer: coarse) {
+    @content;
+  }
+
+  @include media(">tablet") {
+    @content;
+  }
+}
+
+@mixin ratio($height, $width) {
+  font-size: 0;
+  overflow: hidden;
+  position: relative;
+  aspect-ratio: calc($width / $height);
+
+  @supports not (aspect-ratio: calc($width / $height)) {
+    &:after {
+      content: "";
+      display: inline-block;
+      padding-top: calc($height / $width) * 100%;
+      width: 100%;
+    }
+  }
+
+  img,
+  video {
+    @extend %img;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}
+
+@mixin flex-gap($row-gap, $column-gap: $row-gap) {
+  display: inline-flex;
+  gap: $row-gap $column-gap;
+
+  @supports not (gap: $row-gap $column-gap) {
+    --row-gap: #{$row-gap};
+    --column-gap: #{$column-gap};
+    margin: calc(-1 * var(--row-gap)) 0 0 calc(-1 * var(--column-gap));
+    width: calc(100% + var(--column-gap));
+
+    > * {
+      margin: var(--row-gap) 0 0 var(--column-gap);
+    }
+  }
+}
