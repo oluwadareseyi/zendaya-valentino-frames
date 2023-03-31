@@ -5,3 +5,5 @@
 /dist
 /.parcel-cache
 .env
+/static/frames
+/static/frames.json

@@ -7,4 +7,7 @@ html {
 // resets
 body {
   font-family: "Suisse", sans-serif;
+  overscroll-behavior: none;
+  height: 100vh;
+  overflow: hidden;
 }
