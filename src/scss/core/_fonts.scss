@@ -1,17 +1,26 @@
-// @font-face {
-//   font-family: "Suisse";
-//   src: url("../fonts/SuisseIntl-Book.woff2") format("woff2"),
-//     url("../fonts/SuisseIntl-Book.woff") format("woff");
-//   font-weight: 500;
-//   font-style: normal;
-//   font-display: swap;
-// }
+@font-face {
+  font-family: "Suisse";
+  src: url("../fonts/SuisseIntlCond-Semibold.woff2") format("woff2"),
+    url("../fonts/SuisseIntlCond-Semibold.woff") format("woff");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
 
-// @font-face {
-//   font-family: "Suisse";
-//   src: url("../fonts/SuisseIntl-SemiBold.woff2") format("woff2"),
-//     url("../fonts/SuisseIntl-SemiBold.woff") format("woff");
-//   font-weight: 700;
-//   font-style: normal;
-//   font-display: swap;
-// }
+@font-face {
+  font-family: "Suisse";
+  src: url("../fonts/SuisseIntlCond-Medium.woff2") format("woff2"),
+    url("../fonts/SuisseIntlCond-Medium.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Romie";
+  src: url("../fonts/RomieTrial-Italic.woff2") format("woff2"),
+    url("../fonts/RomieTrial-Italic.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}

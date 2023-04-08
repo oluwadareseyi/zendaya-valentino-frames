@@ -1,2 +1,117 @@
+%full-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
 .c-home {
+  &__content {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+  }
+
+  &__title {
+    position: absolute;
+    bottom: 32px;
+    left: 40px;
+
+    h1 {
+      font-weight: 600;
+      font-size: 80px;
+      line-height: 100%;
+      text-align: right;
+      letter-spacing: -0.025em;
+    }
+  }
+
+  &__look {
+    position: absolute;
+    top: 10px;
+    left: 8px;
+    text-align: center;
+
+    &__label {
+      @extend %label;
+      margin-bottom: 8px;
+    }
+
+    &__number {
+      @extend %serif;
+    }
+  }
+
+  &__cast {
+    position: absolute;
+    text-align: center;
+    right: 40px;
+    bottom: 44px;
+
+    &__label {
+      @extend %label;
+      margin-bottom: 8px;
+    }
+
+    &__act {
+      @extend %serif;
+
+      span {
+        font-feature-settings: "ss01" on;
+      }
+    }
+  }
+
+  &__logo {
+    position: absolute;
+    right: 77px;
+    top: 40px;
+  }
+
+  .c-look {
+    @extend %full-content;
+    pointer-events: none;
+
+    &--1 {
+      .c-product {
+        position: absolute;
+
+        &:first-of-type {
+        }
+      }
+    }
+  }
+
+  .c-product {
+    pointer-events: auto;
+    max-width: 360px;
+    width: 100%;
+    height: 378px;
+    padding: 16px;
+
+    &__bg {
+      position: absolute;
+      @extend %full-content;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    &__TITLE {
+    }
+
+    &:hover {
+      .c-product__bg {
+        opacity: 1;
+      }
+    }
+  }
 }

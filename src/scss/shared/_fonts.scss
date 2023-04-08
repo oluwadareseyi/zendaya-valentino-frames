@@ -1,5 +1,12 @@
-%title-2 {
-  font-size: 32px;
-  line-height: 0.7;
-  letter-spacing: calc(-0.015 * 32px);
+%serif {
+  font-family: $font-serif;
+  font-size: 40px;
+  line-height: 100%;
+  letter-spacing: -0.025em;
+}
+
+%label {
+  font-size: 20px;
+  line-height: 100%;
+  letter-spacing: -0.025em;
 }

@@ -12,15 +12,21 @@ export default class SectionBackgrounds extends Component {
 
     this.renderCanvas = this.elements.canvas;
     this.ctx = this.renderCanvas.getContext("2d", { willReadFrequently: true });
-    this.lastIndex = 0;
-    this.currentIndex = 0;
-    this.FPS = 50;
+
+    this.frameStates = {
+      previous: 0,
+      current: 0,
+      isTransitioning: false,
+      isScrolling: false,
+    };
     this.renderCanvas.width = window.innerWidth;
     this.renderCanvas.height = window.innerHeight;
     this.frames = frames;
     this.length = this.frames.length;
+    this.FPS = 60;
     this.image = new Image();
-    this.snapFrames = ["65", "269", "329"];
+    this.snapFrames = [65, 269, 329];
+    this.snapThreshold = 20;
 
     this.addEventListeners();
     this.preloadFrames();
@@ -51,16 +57,17 @@ export default class SectionBackgrounds extends Component {
   drawFirstFrame() {
     this.image.src = this.frames[0];
 
+    console.log(this.image);
+
     this.image.onload = () => {
       this.drawFrame(this.image);
     };
   }
 
   update() {
-    if (this.lastIndex !== this.currentIndex) {
-      console.log(this.currentIndex);
-      this.updateFrame(this.currentIndex);
-      this.lastIndex = this.currentIndex;
+    if (this.frameStates.previous !== this.frameStates.current) {
+      this.frameStates.previous = this.frameStates.current;
+      this.updateFrame(this.frameStates.previous);
     }
   }
 
@@ -68,11 +75,60 @@ export default class SectionBackgrounds extends Component {
     const delta = e.deltaY;
 
     if (delta > 0) {
-      this.currentIndex =
-        this.currentIndex + 1 >= this.length ? 0 : this.currentIndex + 1;
+      this.frameStates.current =
+        this.frameStates.current + 1 >= this.length
+          ? 0
+          : this.frameStates.current + 1;
     } else {
-      this.currentIndex =
-        this.currentIndex - 1 < 0 ? this.length - 1 : this.currentIndex - 1;
+      this.frameStates.current =
+        this.frameStates.current - 1 < 0
+          ? this.length - 1
+          : this.frameStates.current - 1;
+    }
+
+    window.clearTimeout(this.frameStates.isScrolling);
+
+    this.frameStates.isScrolling = setTimeout(() => {
+      this.jumpToFrame();
+    }, 100);
+  }
+
+  jumpToFrame() {
+    // check if we're close to a snap frame using the snapThreshold
+
+    const isCloseToSnapFrame = this.snapFrames.some((frame) => {
+      return Math.abs(frame - this.frameStates.current) < this.snapThreshold;
+    });
+
+    if (isCloseToSnapFrame) {
+      // find the closest snap frame
+      const closestSnapFrame = this.snapFrames.reduce((prev, curr) => {
+        return Math.abs(curr - this.frameStates.current) <
+          Math.abs(prev - this.frameStates.current)
+          ? curr
+          : prev;
+      });
+
+      console.log(closestSnapFrame);
+
+      // slowly transition to the closest snap frame one frame at a time
+
+      const transition = setInterval(() => {
+        if (this.frameStates.current !== closestSnapFrame) {
+          this.frameStates.isTransitioning = true;
+
+          if (this.frameStates.current < closestSnapFrame) {
+            this.frameStates.current++;
+          } else {
+            // this.frameStates.current--;
+          }
+
+          console.log(this.frameStates.current);
+        } else {
+          this.frameStates.isTransitioning = false;
+          clearInterval(transition);
+        }
+      }, 1000 / this.FPS);
     }
   }
 

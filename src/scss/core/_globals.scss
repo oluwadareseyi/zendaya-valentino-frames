@@ -2,6 +2,7 @@ html {
   font-size: calc(100vw / 1440 * 10);
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
+  font-feature-settings: "case" on;
 }
 
 // resets
@@ -10,4 +11,11 @@ body {
   overscroll-behavior: none;
   height: 100vh;
   overflow: hidden;
+  text-transform: uppercase;
+  color: $orange;
+  font-size: 16px;
+  background: $black;
+  line-height: 1.35;
+  letter-spacing: 0.015em;
+  font-feature-settings: "case" on;
 }
