@@ -89,6 +89,7 @@ export default class SectionBackgrounds extends Component {
     }
 
     window.clearTimeout(this.frameStates.isScrolling);
+    this.resetLooks();
 
     this.frameStates.isScrolling = setTimeout(() => {
       this.jumpToFrame();
@@ -131,11 +132,13 @@ export default class SectionBackgrounds extends Component {
           clearInterval(transition);
         }
       }, 1000 / this.FPS);
-    } else {
-      this.elements.looks.forEach((look) => {
-        look.classList.remove("active");
-      });
     }
+  }
+
+  resetLooks() {
+    this.elements.looks.forEach((look) => {
+      look.classList.remove("active");
+    });
   }
 
   setActiveLook(index) {
