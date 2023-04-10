@@ -143,9 +143,6 @@ export default class SectionBackgrounds extends Component {
 
   setActiveLook(index) {
     const { lookIndex, looks } = this.elements;
-    looks.forEach((look) => {
-      look.classList.remove("active");
-    });
 
     looks[index].classList.add("active");
 
