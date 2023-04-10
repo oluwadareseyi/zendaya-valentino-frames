@@ -7,6 +7,8 @@ export default class SectionBackgrounds extends Component {
       element: "body",
       elements: {
         canvas: "canvas",
+        looks: "[data-look]",
+        lookIndex: "[data-look-index]",
       },
     });
 
@@ -109,7 +111,9 @@ export default class SectionBackgrounds extends Component {
           : prev;
       });
 
-      console.log(closestSnapFrame);
+      const snapFrameIndex = this.snapFrames.indexOf(closestSnapFrame);
+
+      this.setActiveLook(snapFrameIndex);
 
       // slowly transition to the closest snap frame one frame at a time
 
@@ -122,14 +126,27 @@ export default class SectionBackgrounds extends Component {
           } else {
             // this.frameStates.current--;
           }
-
-          console.log(this.frameStates.current);
         } else {
           this.frameStates.isTransitioning = false;
           clearInterval(transition);
         }
       }, 1000 / this.FPS);
+    } else {
+      this.elements.looks.forEach((look) => {
+        look.classList.remove("active");
+      });
     }
+  }
+
+  setActiveLook(index) {
+    const { lookIndex, looks } = this.elements;
+    looks.forEach((look) => {
+      look.classList.remove("active");
+    });
+
+    looks[index].classList.add("active");
+
+    lookIndex.innerHTML = index + 1;
   }
 
   addEventListeners() {

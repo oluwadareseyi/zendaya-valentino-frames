@@ -19,3 +19,38 @@ body {
   letter-spacing: 0.015em;
   font-feature-settings: "case" on;
 }
+
+.word {
+  display: inline-flex;
+  overflow: hidden;
+
+  span {
+    display: inline-block;
+    transform: translateY(100%);
+    animation: word 1s $ease-out-expo 0.2s forwards;
+  }
+
+  &:nth-of-type(2) {
+    span {
+      animation-delay: 0.3s;
+    }
+  }
+}
+
+@keyframes word {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes show {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
